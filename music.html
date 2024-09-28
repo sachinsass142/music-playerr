@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music Player</title>
+    <link rel="stylesheet" href="style.css">
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+</head>
+<body>
+    <div class="cont">
+        <div class="music-player">
+            <img src="OIP.jpeg" alt="">
+            <h2>Huntar vantaar</h2>
+            <p>Rajinikanth _ Anirudh Ravichander _ T.J.Gnanavel.mp3</p>
+            <audio id="song">
+                <source src="Vettaiyan - Hunter Vantaar Audio Song  _ Rajinikanth _ Anirudh Ravichander _ T.J.Gnanavel.mp3">
+            </audio>
+            <input type="range" id="process" value="0">
+            <div class="controls">
+                <div><i class="fa-solid fa-backward"></i></div>
+                <div onclick="playPause()"><i  class="fa-solid fa-play" id="playicon"></i></div>
+                <div><i class="fa-solid fa-forward"></i></div>
+            </div>
+        </div>
+    </div>
+    <script>
+        let progress = document.getElementById("process");
+        let song = document.getElementById("song");
+        let playicon = document.getElementById("playicon");
+
+        song.onloadedmetadata = function(){
+            progress.max = song.duration;
+            progress.value = song.currentTime;
+        }
+        function playPause(){
+            if(playicon.classList.contains("fa-pause")){
+                song.pause();
+                playicon.classList.remove("fa-pause");
+                playicon.classList.add("fa-play");
+            }
+            else{
+                song.play();
+                playicon.classList.add("fa-pause");
+                playicon.classList.remove("fa-play");
+            }
+        }
+
+        if(song.play()){
+             setInterval(()=>{
+                progress.value = song.currentTime;
+             },500);
+        }
+        progress.onchange = function(){
+            song.play();
+            song.currentTime = progress.value;
+            playicon.classList.add("fa-pause");
+            playicon.classList.remove("fa-play");
+            
+        }
+
+    </script>
+</body>
+</html>
